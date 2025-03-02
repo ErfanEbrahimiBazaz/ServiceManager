@@ -1,4 +1,5 @@
-﻿using Core.InputModels;
+﻿using Core.Dtos.ProductAggregate;
+using Core.InputModels;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,16 @@ public class ProductController(ProductAggregateRepository productRepository): Co
     {
         // validation
         // mapping
-        await productRepository.CreateProduct(productCreateDto);
+        var productEntityId = await productRepository.CreateProduct(productCreateDto);
         await productRepository.SaveChangesAysnc();
-        return NoContent();
+        return CreatedAtRoute("GetProductById", routeValues: new { productId = productEntityId }, value: productEntityId);
     }
 
-    
+    [HttpGet("{productId}", Name ="GetProductById")]
+    public async Task<ActionResult<ProductDto>> GetProductById(Guid productId)
+    {
+        //validation ProductExistsAsync
+        var ProductDto = await productRepository.GetProductById(productId);
+        return Ok(ProductDto);
+    }
 }
