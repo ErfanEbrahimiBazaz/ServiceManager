@@ -1,4 +1,5 @@
 using Infrastructure.DI;
+using Infrastructure.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddRepositories();
+
 builder.Services.AddProductContexts(builder.Configuration.GetConnectionString("Default"));
+//builder.Services.AddAutoMapper(typeof(ProductMapper).Assembly);
+builder.Services.AddProductMapper();
 
 var app = builder.Build();
 
