@@ -34,7 +34,7 @@ public class ProductAggregateRepository(ProductAggregateContext dbContext,
         return productDto;
     }
 
-    public async Task<IEnumerable<ProductDto>> GetProducts()
+    public async Task<IEnumerable<ProductDto>> GetProductsAsync()
     {
         List<ProductEntity> result = await dbContext.Products.ToListAsync();
         return mapper.Map<List<ProductDto>>(result);
