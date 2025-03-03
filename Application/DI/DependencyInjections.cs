@@ -10,4 +10,9 @@ public static class DependencyInjections
         services.AddAutoMapper(typeof(ProductProfile).Assembly);
         return services;
     }
+    public static IServiceCollection AddMediatRDI(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+        return services;
+    }
 }

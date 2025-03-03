@@ -16,7 +16,8 @@ builder.Services.AddProductContexts(builder.Configuration.GetConnectionString("D
 //builder.Services.AddAutoMapper(typeof(ProductMapper).Assembly);
 builder.Services.AddProductMapper();
 builder.Services.AddProductProfileMapper();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+builder.Services.AddMediatRDI();
 
 var app = builder.Build();
 

@@ -33,7 +33,7 @@ public class ProductController(ProductAggregateRepository productRepository,
     [HttpGet]
     public async Task<ActionResult<GetAllProductsQueryResponse>> GetAllProducts()
     {
-        var response = await mediator.Send(new GetAllProductsQueryResponse());
+        var response = await mediator.Send(new GetAllProductsQuery());
         return Ok(response);
     }
 }
