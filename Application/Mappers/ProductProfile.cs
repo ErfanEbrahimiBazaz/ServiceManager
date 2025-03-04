@@ -1,18 +1,36 @@
 ﻿using Application.CQRS.Product.Query.GetAllProducts;
-using AutoMapper;
+using Core.Dtos.ProductAggregate;
 using Infrastructure.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Mappers;
 
-public class ProductProfile : Profile
+//public class ProductProfile : Profile
+//{
+//    public ProductProfile()
+//    {
+//        CreateMap<ProductEntity, GetAllProductsQueryResponse>()
+//            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+//            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
+//            .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
+//            .ForMember(dest => dest.ProductUnit, opt => opt.MapFrom(src => src.ProductUnit))
+//            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+//            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId));
+//    }
+//}
+
+public static class ResponseMapper
 {
-    public ProductProfile()
+    public static GetAllProductsQueryResponse ToGetAllProductsQueryResponse(this ProductDto productDto)
     {
-        CreateMap<ProductEntity, GetAllProductsQueryResponse>();
+        var response = new GetAllProductsQueryResponse
+        {
+            Id = productDto.Id,
+            ProductName = productDto.ProductName,
+            UnitPrice = productDto.UnitPrice,
+            ProductUnit = productDto.ProductUnit,
+            Description = productDto.Description,
+            CategoryId = productDto.CategoryId,
+        };
+        return response;
     }
 }

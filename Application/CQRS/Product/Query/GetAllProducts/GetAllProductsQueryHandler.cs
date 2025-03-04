@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Infrastructure.Repositories;
 using MediatR;
+using Application.Mappers;
 
 namespace Application.CQRS.Product.Query.GetAllProducts
 {
@@ -10,8 +11,13 @@ namespace Application.CQRS.Product.Query.GetAllProducts
         public async Task<List<GetAllProductsQueryResponse>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
             var result = await productRepository.GetProductsAsync();
-            var productsQuery = mapper.Map<List<GetAllProductsQueryResponse>>(result);
-            return productsQuery;
+            var resultSet = new List<GetAllProductsQueryResponse>();
+            foreach(var product in result)
+            {
+                resultSet.Add(product.ToGetAllProductsQueryResponse());
+            }
+            //var productsQuery = mapper.Map<List<GetAllProductsQueryResponse>>(result);
+            return resultSet;
         }
     }
 }
